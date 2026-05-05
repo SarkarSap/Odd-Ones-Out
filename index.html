@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ODD ONES OUT — MALAD MUMBAI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --void: #0a0a0a; --magenta: #ff0090; --lime: #c8ff00; --cyan: #00f5ff;
+  --red: #ff2200; --yellow: #ffe600; --white: #f0f0f0; --green: #00ff44;
+  --fd: 'Bebas Neue', sans-serif; --fu: 'Barlow Condensed', sans-serif; --fm: 'IBM Plex Mono', monospace;
+}
+html { overflow-x: hidden; }
+body { background: var(--void); color: var(--white); font-family: var(--fu); cursor: crosshair; overflow-x: hidden; }
+::-webkit-scrollbar { width: 5px; } ::-webkit-scrollbar-track { background: var(--void); } ::-webkit-scrollbar-thumb { background: var(--magenta); }
+.D  { font-family: var(--fd); line-height: 0.93; }
+.M  { font-family: var(--fm); }
+.outlined-lime    { -webkit-text-stroke: 2px var(--lime);    color: transparent; }
+.outlined-magenta { -webkit-text-stroke: 2px var(--magenta); color: transparent; }
+.outlined-cyan    { -webkit-text-stroke: 2px var(--cyan);    color: transparent; }
+.outlined-white   { -webkit-text-stroke: 1.5px var(--white); color: transparent; }
+.tag { display:inline-block; font-family:var(--fm); font-weight:700; font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; padding:3px 9px; border:1.5px solid currentColor; }
+.btn { display:inline-block; cursor:pointer; border:2px solid var(--void); font-family:var(--fu); font-weight:800; font-size:0.95rem; letter-spacing:0.12em; text-transform:uppercase; padding:8px 20px; transition:transform .07s, box-shadow .07s; text-decoration:none; }
+.btn:hover  { transform:translate(2px,2px); }
+.btn:active { transform:translate(4px,4px); box-shadow:none !important; }
+.bM { background:var(--magenta); color:var(--white); box-shadow:4px 4px 0 var(--void); }
+.bL { background:var(--lime);    color:var(--void);  box-shadow:4px 4px 0 var(--void); }
+.bC { background:var(--cyan);    color:var(--void);  box-shadow:4px 4px 0 var(--void); }
+.bY { background:var(--yellow);  color:var(--void);  box-shadow:4px 4px 0 var(--void); }
+.bR { background:var(--red);     color:var(--white); box-shadow:4px 4px 0 var(--void); }
+.bW { background:var(--white);   color:var(--void);  box-shadow:4px 4px 0 var(--void); }
+.bV { background:var(--void);    color:var(--lime);  box-shadow:4px 4px 0 var(--lime); border-color:var(--lime); }
+.mq-outer { overflow:hidden; white-space:nowrap; }
+.mq-inner { display:inline-flex; animation:mq 17s linear infinite; }
+.mq-inner.rev { animation-direction:reverse; animation-duration:24s; }
+@keyframes mq { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.mq-i { font-family:var(--fu); font-weight:900; font-size:0.9rem; letter-spacing:0.18em; text-transform:uppercase; padding:0 1.4rem; white-space:nowrap; }
+.page { display:none; } .page.active { display:block; }
+#nav { background:var(--void); border-bottom:2px solid var(--white); position:sticky; top:0; z-index:500; }
+.nav-row { display:flex; align-items:stretch; overflow-x:auto; overflow-y:hidden; height:48px; scrollbar-width:none; }
+.nav-row::-webkit-scrollbar { display:none; }
+.logo-wrap { display:flex; align-items:center; padding:0 12px; border-right:2px solid var(--white); flex-shrink:0; cursor:pointer; }
+.logo-stk { display:flex; flex-direction:column; line-height:1; }
+.logo-stk span { font-family:var(--fd); font-size:1.15rem; line-height:.88; letter-spacing:0.06em; color:var(--white); text-transform:uppercase; }
+.logo-stk .hl { color:var(--lime); }
+.nlink { font-family:var(--fu); font-weight:800; font-size:0.82rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--white); padding:0 14px; border:none; border-right:2px solid #1a1a1a; background:transparent; cursor:pointer; white-space:nowrap; height:100%; transition:background .08s, color .08s; }
+.nlink:hover { background:var(--magenta); color:var(--white); }
+.nlink.act   { background:var(--lime); color:var(--void); border-right-color:var(--void); }
+.nlink-app   { margin-left:auto; background:var(--lime); color:var(--void); border-left:2px solid #333; flex-shrink:0; }
+.nlink-app:hover { background:var(--magenta); color:var(--white); }
+.ht  { background-image:radial-gradient(circle, rgba(255,255,255,.05) 1px, transparent 1px); background-size:16px 16px; }
+.htM { background-image:radial-gradient(circle, rgba(255,0,144,.08) 1.5px, transparent 1.5px); background-size:12px 12px; }
+@keyframes scan { 0%{top:-4px} 100%{top:100%} }
+.scanline { position:fixed; left:0; right:0; height:2px; pointer-events:none; z-index:9999; background:linear-gradient(transparent,rgba(200,255,0,.12),transparent); animation:scan 8s linear infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+@keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.3)} }
+@keyframes slideup { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+.blink  { animation:blink 1s step-end infinite; }
+.pulsed { animation:pulse 1.4s ease-in-out infinite; }
+.ch { transition:transform .1s, box-shadow .1s; cursor:pointer; }
+.ch:hover { transform:translate(-3px,-3px); }
+.win { border:2px solid var(--white); background:var(--void); }
+.winbar { display:flex; align-items:center; justify-content:space-between; padding:4px 10px; border-bottom:2px solid var(--white); font-family:var(--fm); font-size:0.6rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--void); user-select:none; }
+.wdots { display:flex; gap:4px; } .wd { width:9px; height:9px; border:1.5px solid var(--void); }
+.modal-bg { position:fixed; inset:0; background:rgba(0,0,0,.85); z-index:1000; display:none; align-items:flex-end; justify-content:center; }
+.modal-bg.open { display:flex; }
+.modal-sheet { width:100%; max-width:520px; max-height:90vh; overflow-y:auto; background:var(--void); border:2px solid var(--lime); border-bottom:none; animation:slideup .22s ease; }
+.fab { position:fixed; bottom:22px; right:22px; z-index:600; background:var(--magenta); color:var(--white); font-family:var(--fu); font-weight:900; font-size:0.82rem; letter-spacing:0.12em; text-transform:uppercase; border:2px solid var(--void); box-shadow:3px 3px 0 var(--void); padding:9px 14px; cursor:pointer; display:flex; align-items:center; gap:6px; transition:transform .07s, box-shadow .07s; }
+.fab:hover  { transform:translate(2px,2px); box-shadow:1px 1px 0 var(--void); }
+.fab:active { transform:translate(3px,3px); box-shadow:none; }
+.abtn { background:var(--void); color:var(--white); font-family:var(--fu); font-weight:800; font-size:0.88rem; letter-spacing:0.1em; text-transform:uppercase; border:2px solid #2a2a2a; padding:14px 10px; display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer; transition:background .08s, color .08s, border-color .08s; }
+.abtn:hover { background:var(--lime); color:var(--void); border-color:var(--lime); }
+.inner { max-width:1180px; margin:0 auto; padding:0 14px 80px; }
+.stn { padding:7px 4px; text-align:center; font-family:var(--fm); font-size:0.58rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; border:1px solid #111; }
+.stn.op { background:#0b1800; border-color:var(--lime); color:var(--lime); cursor:pointer; }
+.stn.bz { background:#120000; border-color:#330000; color:#330000; }
+.stn.ed { background:#000e1a; border-color:var(--cyan); color:var(--cyan); cursor:pointer; }
+.pod { border:2px solid #1e1e1e; padding:16px; position:relative; transition:border-color .1s, box-shadow .1s, transform .1s; }
+.pod:hover { transform:translate(-2px,-2px); }
+.ev { border:2px solid #252525; padding:14px; transition:border-color .1s, box-shadow .1s, transform .1s; cursor:pointer; }
+.ev:hover { border-color:var(--magenta); box-shadow:4px 4px 0 var(--magenta); transform:translate(-2px,-2px); }
+.zc { border:2px solid #1e1e1e; padding:16px; transition:border-color .1s, box-shadow .1s, transform .1s; cursor:pointer; }
+.zc:hover { border-color:var(--cyan); box-shadow:4px 4px 0 var(--cyan); transform:translate(-2px,-2px); }
+.mc { border:2px solid var(--white); overflow:hidden; transition:box-shadow .1s, transform .1s; cursor:pointer; }
+.mc:hover { box-shadow:5px 5px 0 var(--magenta); transform:translate(-3px,-3px); }
+.floor-card { border:2px solid #222; padding:18px; position:relative; transition:border-color .1s, transform .1s; cursor:pointer; }
+.floor-card:hover { transform:translate(-2px,-2px); }
+.sdot { width:8px; height:8px; background:var(--green); display:inline-block; animation:pulse 1.2s ease-in-out infinite; }
+.partner-pill { display:inline-block; font-family:var(--fm); font-size:0.58rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:3px 8px; border:1px solid #333; color:#555; margin:2px; }
+</style>
+</head>
+<body class="ht">
+<div class="scanline"></div>
+<nav id="nav">
+  <div class="mq-outer" style="background:var(--magenta);border-bottom:2px solid var(--void);padding:3px 0;">
+    <div class="mq-inner">
+      <span class="mq-i" style="color:var(--void)">★ ODD ONES OUT</span><span class="mq-i" style="color:var(--void)">▸ MALAD MUMBAI</span><span class="mq-i" style="color:var(--void)">★ 5 FLOORS // 6,500 SQ FT EACH</span><span class="mq-i" style="color:var(--void)">▸ PC BANG — 100 SEATS</span><span class="mq-i" style="color:var(--void)">★ CREATOR STUDIOS — 20 BAYS</span><span class="mq-i" style="color:var(--void)">▸ UNDERGROUND EVENT SPACE — 500 CAP</span><span class="mq-i" style="color:var(--void)">★ NFC ECOSYSTEM</span><span class="mq-i" style="color:var(--void)">▸ DINER + PUB — 160 COVERS</span>
+      <span class="mq-i" style="color:var(--void)">★ ODD ONES OUT</span><span class="mq-i" style="color:var(--void)">▸ MALAD MUMBAI</span><span class="mq-i" style="color:var(--void)">★ 5 FLOORS // 6,500 SQ FT EACH</span><span class="mq-i" style="color:var(--void)">▸ PC BANG — 100 SEATS</span><span class="mq-i" style="color:var(--void)">★ CREATOR STUDIOS — 20 BAYS</span><span class="mq-i" style="color:var(--void)">▸ UNDERGROUND EVENT SPACE — 500 CAP</span><span class="mq-i" style="color:var(--void)">★ NFC ECOSYSTEM</span><span class="mq-i" style="color:var(--void)">▸ DINER + PUB — 160 COVERS</span>
+    </div>
+  </div>
+  <div class="nav-row">
+    <div class="logo-wrap" onclick="showPage('home')"><div class="logo-stk"><span style="color:var(--magenta);">ODD</span><span>ONES</span><span class="hl">OUT</span></div></div>
+    <button class="nlink act" data-p="home" onclick="showPage('home')">Home</button>
+    <button class="nlink" data-p="venue" onclick="showPage('venue')">The Venue</button>
+    <button class="nlink" data-p="diner" onclick="showPage('diner')">Diner & Pub</button>
+    <button class="nlink" data-p="pcbang" onclick="showPage('pcbang')">PC Bang</button>
+    <button class="nlink" data-p="studios" onclick="showPage('studios')">Studios</button>
+    <button class="nlink" data-p="stage" onclick="showPage('stage')">The Underground</button>
+    <button class="nlink" data-p="merch" onclick="showPage('merch')">OOO Merch</button>
+    <button class="nlink" data-p="zine" onclick="showPage('zine')">The Zine</button>
+    <button class="nlink nlink-app" onclick="openModal()">⬡ Odd App</button>
+  </div>
+</nav>
+
+<div id="page-home" class="page active">
+<div class="inner" style="padding-top:16px;">
+  <div style="display:grid;grid-template-columns:1fr 260px;border:2px solid var(--white);" id="hero-grid">
+    <div style="padding:20px 24px;border-right:2px solid var(--white);">
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;">
+        <span class="tag" style="color:var(--white);border-color:var(--magenta);background:var(--magenta);">Cultural Infrastructure</span>
+        <span class="tag" style="color:var(--lime);border-color:var(--lime);">Malad, Mumbai</span>
+        <span class="tag" style="color:var(--cyan);border-color:var(--cyan);">5 Floors · 32,500 sq ft</span>
+      </div>
+      <div class="D" style="font-size:clamp(4.5rem,13vw,10rem);color:var(--white);line-height:.92;">WE<br><span style="color:var(--magenta);">ARE</span><br><span class="outlined-lime">THE</span><br><span style="color:var(--lime);">ODD</span><br>ONES<br><span style="color:var(--cyan);">OUT.</span></div>
+      <div class="M" style="font-size:.65rem;opacity:.4;margin-top:10px;letter-spacing:.2em;">EST. 2027 // MH-IN // 22°07'N 72°51'E</div>
+    </div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:var(--lime);padding:10px 12px;border-bottom:2px solid var(--void);">
+        <div class="M" style="font-size:.58rem;font-weight:700;color:var(--void);opacity:.7;letter-spacing:.15em;">// STATUS</div>
+        <div class="D" style="font-size:1.7rem;color:var(--void);">OPEN NOW</div>
+        <div class="M" style="font-size:.62rem;color:var(--void);opacity:.65;">10:00AM → 3:00AM DAILY</div>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;border-top:2px solid #1a1a1a;">
+        <div class="ch" style="padding:9px 12px;border-bottom:2px solid #1a1a1a;display:flex;justify-content:space-between;align-items:center;" onclick="showPage('stage')">
+          <div><div class="M" style="font-size:.55rem;color:var(--magenta);opacity:.7;letter-spacing:.12em;">B/F → THE UNDERGROUND</div><div style="font-family:var(--fu);font-weight:800;font-size:.78rem;text-transform:uppercase;">500 Standing · 4 Configs</div></div>
+          <div class="M" style="font-size:.58rem;color:var(--magenta);">Events →</div>
+        </div>
+        <div class="ch" style="padding:9px 12px;border-bottom:2px solid #1a1a1a;display:flex;justify-content:space-between;align-items:center;" onclick="showPage('diner')">
+          <div><div class="M" style="font-size:.55rem;color:var(--yellow);opacity:.7;letter-spacing:.12em;">G/F → DINER & PUB</div><div style="font-family:var(--fu);font-weight:800;font-size:.78rem;text-transform:uppercase;">160 Covers</div></div>
+          <div class="M" style="font-size:.58rem;color:var(--yellow);">→</div>
+        </div>
+        <div class="ch" style="padding:9px 12px;border-bottom:2px solid #1a1a1a;display:flex;justify-content:space-between;align-items:center;" onclick="showPage('pcbang')">
+          <div><div class="M" style="font-size:.55rem;color:var(--lime);opacity:.7;letter-spacing:.12em;">1/F → PC BANG</div><div style="font-family:var(--fu);font-weight:800;font-size:.78rem;text-transform:uppercase;">100 Gaming + 20 Editing</div></div>
+          <div class="M" style="font-size:.58rem;color:var(--lime);">₹100/hr →</div>
+        </div>
+        <div class="ch" style="padding:9px 12px;border-bottom:2px solid #1a1a1a;display:flex;justify-content:space-between;align-items:center;" onclick="showPage('studios')">
+          <div><div class="M" style="font-size:.55rem;color:var(--cyan);opacity:.7;letter-spacing:.12em;">2/F → CREATOR STUDIOS</div><div style="font-family:var(--fu);font-weight:800;font-size:.78rem;text-transform:uppercase;">Music · Video · Cyclorama</div></div>
+          <div class="M" style="font-size:.58rem;color:var(--cyan);">₹950/hr →</div>
+        </div>
+        <div class="ch" style="padding:9px 12px;display:flex;justify-content:space-between;align-items:center;" onclick="showPage('merch')">
+          <div><div class="M" style="font-size:.55rem;color:var(--yellow);opacity:.7;letter-spacing:.12em;">IN-VENUE → OOO MERCH</div><div style="font-family:var(--fu);font-weight:800;font-size:.78rem;text-transform:uppercase;">Streetwear Label</div></div>
+          <div class="M" style="font-size:.58rem;color:var(--yellow);">Shop →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;border:2px solid var(--white);border-top:none;margin-bottom:20px;">
+    <div style="background:var(--magenta);padding:9px 16px;flex:1;"><div style="font-family:var(--fu);font-weight:900;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--white);">For Gamers ▸ Rappers ▸ Editors ▸ Creators ▸ Outcasts</div></div>
+    <button class="btn bL" style="border:none;border-left:2px solid var(--void);" onclick="showPage('venue')">Explore Venue</button>
+    <button class="btn bW" style="border:none;border-left:2px solid var(--void);" onclick="openModal()">⬡ Odd App</button>
+  </div>
+  <div class="win" style="box-shadow:6px 6px 0 var(--magenta);margin-bottom:20px;">
+    <div class="winbar" style="background:var(--magenta);"><div class="wdots"><div class="wd" style="background:var(--red);"></div><div class="wd" style="background:var(--yellow);"></div><div class="wd" style="background:var(--lime);"></div></div><span>MANIFESTO.TXT — ODD_ONES_OUT</span><span>■ □ ✕</span></div>
+    <div style="padding:22px 24px;">
+      <div class="D" style="font-size:clamp(2rem,5.5vw,4rem);line-height:.95;color:var(--white);">INFRASTRUCTURE<br><span style="color:var(--lime);">FOR THE</span><br><span class="outlined-white">REST OF US.</span></div>
+      <hr style="border:none;border-top:1px dashed #2a2a2a;margin:14px 0;">
+      <p style="font-family:var(--fu);font-weight:600;font-size:1.05rem;line-height:1.6;max-width:680px;opacity:.82;">Mumbai has world-class venues for the polished. We built a world-class space for the <strong style="color:var(--magenta);">raw</strong>. The rappers between record deals. The gamers between tournaments. The editors between gigs. Five floors. One ecosystem. Zero compromise.<br><br><span style="color:var(--lime);font-weight:800;">Make the underground feel legitimate without making it mainstream.</span></p>
+    </div>
+  </div>
+  <div class="mq-outer" style="border:2px solid var(--white);padding:5px 0;">
+    <div class="mq-inner rev">
+      <span class="mq-i" style="color:var(--cyan);">RTX 4070 Ti</span><span class="mq-i" style="color:var(--magenta);">240Hz · 1440p</span><span class="mq-i" style="color:var(--lime);">Soundproof Studios</span><span class="mq-i" style="color:var(--yellow);">12KW PA System</span><span class="mq-i" style="color:var(--cyan);">4K LED Backdrop</span><span class="mq-i" style="color:var(--magenta);">NFC Wristband</span><span class="mq-i" style="color:var(--lime);">₹100/hr Gaming</span><span class="mq-i" style="color:var(--yellow);">160 Covers · Full Kitchen</span><span class="mq-i" style="color:var(--cyan);">500 Cap Underground Stage</span><span class="mq-i" style="color:var(--magenta);">Cyclorama Studio</span>
+      <span class="mq-i" style="color:var(--cyan);">RTX 4070 Ti</span><span class="mq-i" style="color:var(--magenta);">240Hz · 1440p</span><span class="mq-i" style="color:var(--lime);">Soundproof Studios</span><span class="mq-i" style="color:var(--yellow);">12KW PA System</span><span class="mq-i" style="color:var(--cyan);">4K LED Backdrop</span><span class="mq-i" style="color:var(--magenta);">NFC Wristband</span><span class="mq-i" style="color:var(--lime);">₹100/hr Gaming</span><span class="mq-i" style="color:var(--yellow);">160 Covers · Full Kitchen</span><span class="mq-i" style="color:var(--cyan);">500 Cap Underground Stage</span><span class="mq-i" style="color:var(--magenta);">Cyclorama Studio</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<div id="page-venue" class="page">
+<div class="inner" style="padding-top:14px;">
+  <div style="border:2px solid var(--white);padding:14px 18px;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:0;">
+    <div><span class="tag" style="color:var(--white);border-color:var(--white);display:inline-block;margin-bottom:5px;">5 Floors · 6,500 sq ft each · 32,500 sq ft total</span><div class="D" style="font-size:clamp(3rem,9vw,6.5rem);line-height:.9;"><span style="color:var(--white);">THE</span><br><span class="outlined-lime">VENUE.</span></div></div>
+    <p style="font-family:var(--fu);font-weight:600;font-size:.98rem;opacity:.65;max-width:300px;line-height:1.55;">Five vertically stacked floors. Each one distinct. Each one interconnected through the NFC ecosystem.</p>
+  </div>
+  <div style="border:2px solid var(--white);border-top:none;margin-bottom:24px;">
+    <div class="floor-card" style="border-color:#1e1e1e;border-top:4px solid var(--magenta);" onclick="showPage('stage')">
+      <div style="display:grid;grid-template-columns:80px 1fr auto;gap:16px;align-items:start;">
+        <div><div class="D" style="color:var(--magenta);font-size:3rem;line-height:1;">B/F</div><div class="M" style="font-size:.55rem;color:var(--magenta);opacity:.6;letter-spacing:.1em;">BASEMENT</div></div>
+        <div><div class="D" style="font-size:2rem;color:var(--white);margin-bottom:4px;">The Underground — Live Event Space</div><div class="M" style="font-size:.62rem;opacity:.5;line-height:1.8;margin-bottom:8px;"><strong style="color:var(--magenta);">25ft × 20ft stage</strong> · <strong style="color:var(--white);">500 standing</strong> / <strong style="color:var(--white);">350 seated</strong> · 4 configurations</div><div style="display:flex;gap:6px;flex-wrap:wrap;"><span class="tag" style="color:var(--magenta);border-color:var(--magenta);font-size:.55rem;">500 Standing</span><span class="tag" style="color:var(--magenta);border-color:var(--magenta);font-size:.55rem;">350 Seated</span><span class="tag" style="color:var(--white);border-color:#333;font-size:.55rem;">Live Music</span><span class="tag" style="color:var(--white);border-color:#333;font-size:.55rem;">LAN Esports</span></div></div>
+        <div style="text-align:right;"><div class="D" style="color:var(--magenta);font-size:1.4rem;">6,500<br><span style="font-size:.9rem;">sq ft</span></div><div class="M" style="font-size:.55rem;opacity:.4;margin-top:4px;">EVENT BASIS</div></div>
+      </div>
+    </div>
+    <div class="floor-card" style="border-color:#1e1e1e;border-top:4px solid var(--yellow);" onclick="showPage('diner')">
+      <div style="display:grid;grid-template-columns:80px 1fr auto;gap:16px;align-items:start;">
+        <div><div class="D" style="color:var(--yellow);font-size:3rem;line-height:1;">G/F</div><div class="M" style="font-size:.55rem;color:var(--yellow);opacity:.6;letter-spacing:.1em;">GROUND</div></div>
+        <div><div class="D" style="font-size:2rem;color:var(--white);margin-bottom:4px;">The Diner & Pub</div><div class="M" style="font-size:.62rem;opacity:.5;line-height:1.8;margin-bottom:8px;">Indian Folk Maximalism — vintage cassettes, bold maximalist interiors<br><strong style="color:var(--yellow);">160 covers total</strong> · Full table service · Primary kitchen & bar</div><div style="display:flex;gap:6px;flex-wrap:wrap;"><span class="tag" style="color:var(--yellow);border-color:var(--yellow);font-size:.55rem;">160 Covers</span><span class="tag" style="color:var(--white);border-color:#333;font-size:.55rem;">Full Kitchen</span><span class="tag" style="color:var(--white);border-color:#333;font-size:.55rem;">Bar</span></div></div>
+        <div style="text-align:right;"><div class="D" style="color:var(--yellow);font-size:1.4rem;">6,500<br><span style="font-size:.9rem;">sq ft</span></div><div class="M" style="font-size:.55rem;opacity:.4;margin-top:4px;">OPEN 10AM–3AM</div></div>
+      </div>
+    </div>
+    <div class="floor-card" style="border-color:#1e1e1e;border-top:4px solid var(--lime);" onclick="showPage('pcbang')">
+      <div style="display:grid;grid-template-columns:80px 1fr auto;gap:16px;align-items:start;">
+        <div><div class="D" style="color:var(--lime);font-size:3rem;line-height:1;">1/F</div><div class="M" style="font-size:.55rem;color:var(--lime);opacity:.6;letter-spacing:.1em;">FIRST</div></div>
+        <div><div class="D" style="font-size:2rem;color:var(--white);margin-bottom:4px;">Kali-Core Hub — PC Bang</div><div class="M" style="font-size:.62rem;opacity:.5;line-height:1.8;margin-bottom:8px;"><strong style="color:var(--lime);">100 competitive gaming seats</strong> · <strong style="color:var(--cyan);">20 pro editing bays</strong></div><div style="display:flex;gap:6px;flex-wrap:wrap;"><span class="tag" style="color:var(--lime);border-color:var(--lime);font-size:.55rem;">100 Gaming</span><span class="tag" style="color:var(--cyan);border-color:var(--cyan);font-size:.55rem;">20 Editing</span><span class="tag" style="color:var(--white);border-color:#333;font-size:.55rem;">₹100–150/hr</span></div></div>
+        <div style="text-align:right;"><div class="D" style="color:var(--lime);font-size:1.4rem;">6,500<br><span style="font-size:.9rem;">sq ft</span></div><div class="M" style="font-size:.55rem;opacity:.4;margin-top:4px;">120 ACTIVE USERS</div></div>
+      </div>
+    </div>
+    <div class="floor-card" style="border-color:#1e1e1e;border-top:4px solid var(--cyan);" onclick="showPage('studios')">
+      <div style="display:grid;grid-template-columns:80px 1fr auto;gap:16px;align-items:start;">
+        <div><div class="D" style="color:var(--cyan);font-size:3rem;line-height:1;">2/F</div><div class="M" style="font-size:.55rem;color:var(--cyan);opacity:.6;letter-spacing:.1em;">SECOND</div></div>
+        <div><div class="D" style="font-size:2rem;color:var(--white);margin-bottom:4px;">Creator Studios</div><div class="M" style="font-size:.62rem;opacity:.5;line-height:1.8;margin-bottom:8px;">Soundproofed music production, vocal recording, podcast, and cyclorama spaces</div><div style="display:flex;gap:6px;flex-wrap:wrap;"><span class="tag" style="color:var(--cyan);border-color:var(--cyan);font-size:.55rem;">Music</span><span class="tag" style="color:var(--cyan);border-color:var(--cyan);font-size:.55rem;">Video</span><span class="tag" style="color:var(--cyan);border-color:var(--cyan);font-size:.55rem;">Podcast</span><span class="tag" style="color:var(--white);border-color:#333;font-size:.55rem;">From ₹950/hr</span></div></div>
+        <div style="text-align:right;"><div class="D" style="color:var(--cyan);font-size:1.4rem;">6,500<br><span style="font-size:.9rem;">sq ft</span></div><div class="M" style="font-size:.55rem;opacity:.4;margin-top:4px;">HOURLY BOOKING</div></div>
+      </div>
+    </div>
+    <div class="floor-card" style="border-color:#1e1e1e;border-top:4px solid #444;">
+      <div style="display:grid;grid-template-columns:80px 1fr auto;gap:16px;align-items:start;">
+        <div><div class="D" style="color:#555;font-size:3rem;line-height:1;">3/F</div><div class="M" style="font-size:.55rem;color:#555;opacity:.8;letter-spacing:.1em;">THIRD</div></div>
+        <div><div class="D" style="font-size:2rem;color:#555;margin-bottom:4px;">Office & Operations Hub</div><div class="M" style="font-size:.62rem;opacity:.35;line-height:1.8;margin-bottom:8px;">Back-of-house operations and administrative infrastructure</div><div style="display:flex;gap:6px;flex-wrap:wrap;"><span class="tag" style="color:#444;border-color:#333;font-size:.55rem;">Not Client-Facing</span><span class="tag" style="color:#444;border-color:#333;font-size:.55rem;">Operations</span></div></div>
+        <div style="text-align:right;"><div class="D" style="color:#444;font-size:1.4rem;">6,500<br><span style="font-size:.9rem;">sq ft</span></div><div class="M" style="font-size:.55rem;opacity:.25;margin-top:4px;">STAFF ONLY</div></div>
+      </div>
+    </div>
+  </div>
+  <div style="border:2px solid var(--white);padding:16px 18px;margin-bottom:24px;">
+    <div class="M" style="font-size:.6rem;color:var(--lime);letter-spacing:.18em;margin-bottom:10px;">// HARDWARE & TECHNOLOGY PARTNERS</div>
+    <p style="font-family:var(--fu);font-weight:600;font-size:.92rem;opacity:.6;line-height:1.55;margin-bottom:12px;max-width:720px;">All hardware is supplied through brand partnership agreements — converting hardware cost from capex into recurring B2B revenue.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:4px;"><span class="partner-pill" style="color:var(--lime);border-color:var(--lime);">Logitech G</span><span class="partner-pill" style="color:var(--lime);border-color:var(--lime);">Corsair</span><span class="partner-pill" style="color:var(--lime);border-color:var(--lime);">HyperX</span><span class="partner-pill" style="color:var(--cyan);border-color:var(--cyan);">LG</span><span class="partner-pill" style="color:var(--cyan);border-color:var(--cyan);">Samsung</span><span class="partner-pill" style="color:var(--magenta);border-color:var(--magenta);">Intel</span><span class="partner-pill" style="color:var(--magenta);border-color:var(--magenta);">AMD</span><span class="partner-pill" style="color:var(--magenta);border-color:var(--magenta);">NVIDIA</span><span class="partner-pill" style="color:var(--yellow);border-color:var(--yellow);">Adobe</span><span class="partner-pill" style="color:var(--yellow);border-color:var(--yellow);">Blackmagic</span><span class="partner-pill" style="color:var(--white);border-color:#555;">AKG</span><span class="partner-pill" style="color:var(--white);border-color:#555;">Yamaha</span><span class="partner-pill" style="color:var(--white);border-color:#555;">Sennheiser</span><span class="partner-pill" style="color:var(--white);border-color:#555;">Sony</span><span class="partner-pill" style="color:var(--white);border-color:#555;">DJI</span><span class="partner-pill" style="color:var(--white);border-color:#555;">Godox</span></div>
+  </div>
+</div>
+</div>
+
+<div id="page-diner" class="page">
+<div class="inner" style="padding-top:14px;">
+  <div style="border:2px solid var(--white);padding:14px 18px;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:0;">
+    <div><span class="tag" style="color:var(--yellow);border-color:var(--yellow);display:inline-block;margin-bottom:5px;">Ground Floor · Indian Folk Maximalism</span><div class="D" style="font-size:clamp(2.5rem,7vw,5rem);line-height:.9;"><span style="color:var(--yellow);">THE DINER</span><br><span class="outlined-white">& PUB.</span></div></div>
+    <div style="text-align:right;"><div class="M" style="font-size:.6rem;opacity:.5;letter-spacing:.12em;">// G/F — MALAD</div><div class="D" style="font-size:1.5rem;">160 COVERS</div><div class="M" style="font-size:.6rem;opacity:.4;">22 FOUR-TOPS · 36 TWO-TOPS</div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 300px;border:2px solid var(--white);border-top:none;margin-bottom:20px;" id="diner-grid">
+    <div style="border-right:2px solid var(--white);padding:16px;">
+      <div class="M" style="font-size:.6rem;color:var(--yellow);letter-spacing:.15em;margin-bottom:10px;">// ABOUT THE SPACE</div>
+      <p style="font-family:var(--fu);font-weight:600;font-size:1rem;opacity:.75;line-height:1.6;margin-bottom:14px;">The social anchor of the venue. Walls lined with vintage Indian music cassettes alongside international slow-pop icons. A warm, communal energy that functions as the networking layer — where creators hold informal meetings, freelancers set up for the afternoon, and first-timers get comfortable before exploring the rest of the space.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border:2px solid #1a1a1a;">
+        <div style="padding:12px;border-right:2px solid #1a1a1a;"><div class="M" style="font-size:.57rem;color:var(--yellow);opacity:.8;letter-spacing:.12em;">// SEATING</div><div class="D" style="font-size:2rem;margin-top:2px;">160</div><div class="M" style="font-size:.6rem;opacity:.4;">Total covers</div></div>
+        <div style="padding:12px;"><div class="M" style="font-size:.57rem;color:var(--yellow);opacity:.8;letter-spacing:.12em;">// TABLES</div><div class="D" style="font-size:2rem;margin-top:2px;">58</div><div class="M" style="font-size:.6rem;opacity:.4;">22 four-tops + 36 two-tops</div></div>
+      </div>
+    </div>
+    <div>
+      <div style="background:var(--yellow);padding:9px 12px;border-bottom:2px solid var(--void);"><div class="D" style="font-size:1.8rem;color:var(--void);">🍺 THE BAR</div><div class="M" style="font-size:.58rem;color:var(--void);opacity:.8;letter-spacing:.12em;">FULL TABLE SERVICE. REAL DRINKS.</div></div>
+      <div style="padding:13px;border-bottom:2px solid #1a1a1a;background:#110d00;">
+        <span class="tag" style="color:var(--yellow);border-color:var(--yellow);display:inline-block;margin-bottom:6px;font-size:.58rem;">⚠ DAYTIME SHIFT</span>
+        <div class="D" style="color:var(--yellow);font-size:3.2rem;line-height:.9;">50%<br>OFF</div>
+        <div class="D" style="color:var(--white);font-size:1.5rem;">ALL POURS</div>
+        <hr style="border:none;border-top:1px dashed #444;margin:7px 0;">
+        <div class="M" style="font-size:.65rem;font-weight:700;color:var(--yellow);letter-spacing:.1em;">MON–FRI // 12PM → 6PM</div>
+        <div class="M" style="font-size:.58rem;opacity:.45;margin-top:2px;">Trades per-unit margin for occupancy. Targets the freelancer afternoon window.</div>
+      </div>
+      <div style="padding:11px;">
+        <div class="M" style="font-size:.57rem;color:var(--yellow);letter-spacing:.14em;margin-bottom:7px;">// MENU SAMPLE</div>
+        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #1a1a1a;font-family:var(--fu);font-weight:700;font-size:.88rem;"><span>Craft Lager</span><span style="color:var(--yellow);">₹180</span></div>
+        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #1a1a1a;font-family:var(--fu);font-weight:700;font-size:.88rem;"><span>Whisky Soda</span><span style="color:var(--yellow);">₹220</span></div>
+        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #1a1a1a;font-family:var(--fu);font-weight:700;font-size:.88rem;"><span>Energy Bomb</span><span style="color:var(--yellow);">₹120</span></div>
+        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #1a1a1a;font-family:var(--fu);font-weight:700;font-size:.88rem;"><span>Loaded Fries</span><span style="color:var(--yellow);">₹160</span></div>
+        <div style="display:flex;justify-content:space-between;padding:6px 0;font-family:var(--fu);font-weight:700;font-size:.88rem;"><span>Peri Peri Wings</span><span style="color:var(--yellow);">₹220</span></div>
+        <button class="btn bY" style="width:100%;margin-top:10px;text-align:center;" onclick="openModal()">Order via Odd App</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div id="page-pcbang" class="page">
+<div class="inner" style="padding-top:14px;">
+  <div style="border:2px solid var(--white);padding:14px 18px;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:0;">
+    <div><span class="tag" style="color:var(--lime);border-color:var(--lime);display:inline-block;margin-bottom:5px;">First Floor · Hyperpop Garage Aesthetic</span><div class="D" style="font-size:clamp(2.5rem,7vw,5rem);line-height:.9;"><span style="color:var(--lime);">KALI-CORE</span><br><span class="outlined-white">PC BANG.</span></div></div>
+    <div style="text-align:right;"><div class="M" style="font-size:.6rem;opacity:.5;letter-spacing:.12em;">// 1/F — 6,500 SQ FT</div><div class="D" style="font-size:1.5rem;"><span style="color:var(--lime);">100</span> + <span style="color:var(--cyan);">20</span></div><div class="M" style="font-size:.6rem;opacity:.4;">GAMING + EDITING · 120 TOTAL</div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 300px;border:2px solid var(--white);border-top:none;margin-bottom:20px;" id="hub-grid">
+    <div style="border-right:2px solid var(--white);">
+      <div style="background:var(--lime);padding:10px 14px;border-bottom:2px solid var(--void);display:flex;gap:20px;align-items:center;flex-wrap:wrap;">
+        <div><div class="M" style="font-size:.57rem;font-weight:700;color:var(--void);opacity:.7;letter-spacing:.14em;">STANDARD RIG</div><div class="D" style="font-size:2.8rem;color:var(--void);">₹100<span style="font-size:1.1rem;">/hr</span></div></div>
+        <div style="width:2px;height:44px;background:rgba(0,0,0,.2);"></div>
+        <div><div class="M" style="font-size:.57rem;font-weight:700;color:var(--void);opacity:.7;letter-spacing:.14em;">PRIME RIG</div><div class="D" style="font-size:2.8rem;color:var(--void);">₹150<span style="font-size:1.1rem;">/hr</span></div></div>
+        <div style="width:2px;height:44px;background:rgba(0,0,0,.2);"></div>
+        <div><div class="M" style="font-size:.57rem;font-weight:700;color:var(--void);opacity:.7;letter-spacing:.14em;">EDITING BAY</div><div class="D" style="font-size:2.8rem;color:var(--void);">₹150<span style="font-size:1.1rem;">/hr</span></div></div>
+        <button class="btn bV" style="margin-left:auto;" onclick="openModal()">Book Now</button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:2px solid #131313;">
+        <div style="padding:13px 14px;border-right:2px solid #131313;border-bottom:2px solid #131313;"><div class="M" style="font-size:.57rem;color:var(--lime);opacity:.8;letter-spacing:.14em;">// GPU</div><div class="D" style="font-size:1.8rem;margin-top:2px;">RTX 4070 Ti</div><div class="M" style="font-size:.62rem;opacity:.45;margin-top:2px;">DLSS 3.0 — Frame Gen · NVIDIA</div></div>
+        <div style="padding:13px 14px;border-bottom:2px solid #131313;"><div class="M" style="font-size:.57rem;color:var(--cyan);opacity:.8;letter-spacing:.14em;">// DISPLAY</div><div class="D" style="font-size:1.8rem;margin-top:2px;">240Hz / 1440p</div><div class="M" style="font-size:.62rem;opacity:.45;margin-top:2px;">LG / Zowie / Samsung — 1ms IPS</div></div>
+        <div style="padding:13px 14px;border-right:2px solid #131313;"><div class="M" style="font-size:.57rem;color:var(--magenta);opacity:.8;letter-spacing:.14em;">// CPU</div><div class="D" style="font-size:1.8rem;margin-top:2px;">i9-14900K</div><div class="M" style="font-size:.62rem;opacity:.45;margin-top:2px;">Intel / AMD — 24 Core · 64GB DDR5</div></div>
+        <div style="padding:13px 14px;"><div class="M" style="font-size:.57rem;color:var(--yellow);opacity:.8;letter-spacing:.14em;">// PERIPHERALS</div><div class="D" style="font-size:1.8rem;margin-top:2px;">Pro Grade</div><div class="M" style="font-size:.62rem;opacity:.45;margin-top:2px;">Logitech G · Corsair · HyperX</div></div>
+      </div>
+      <div style="padding:11px;border-bottom:2px solid #131313;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;flex-wrap:wrap;gap:4px;">
+          <div class="M" style="font-size:.57rem;color:var(--lime);letter-spacing:.14em;">// GAMING FLOOR — LIVE AVAILABILITY (100 SEATS)</div>
+          <div style="display:flex;gap:8px;"><span class="M" style="font-size:.55rem;color:var(--lime);">● OPEN</span><span class="M" style="font-size:.55rem;color:#330000;">■ IN USE</span><span class="M" style="font-size:.55rem;color:var(--cyan);">▲ EDITING</span></div>
+        </div>
+        <div id="stn-grid" style="display:grid;grid-template-columns:repeat(10,1fr);gap:2px;margin-bottom:6px;"></div>
+        <div class="M" style="font-size:.57rem;color:var(--cyan);letter-spacing:.14em;margin-top:8px;margin-bottom:5px;">// EDITING BAYS (20 SEATS)</div>
+        <div id="edit-grid" style="display:grid;grid-template-columns:repeat(10,1fr);gap:2px;"></div>
+      </div>
+      <div style="padding:11px;display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
+        <div class="M" style="font-size:.57rem;color:var(--magenta);letter-spacing:.12em;opacity:.7;">F&B ORDERING:</div>
+        <div class="M" style="font-size:.57rem;opacity:.45;">Order from the G/F Diner menu via Odd App → delivered direct to your station.</div>
+      </div>
+    </div>
+    <div>
+      <div style="background:var(--lime);padding:9px 12px;border-bottom:2px solid var(--void);"><div class="D" style="font-size:1.6rem;color:var(--void);">PC BANG RULES</div><div class="M" style="font-size:.58rem;color:var(--void);opacity:.8;letter-spacing:.1em;">KNOW BEFORE YOU SIT</div></div>
+      <div style="padding:13px;">
+        <div style="padding:8px 0;border-bottom:1px solid #1a1a1a;"><div class="M" style="font-size:.6rem;color:var(--lime);letter-spacing:.1em;margin-bottom:2px;">01 // BOOKING</div><div style="font-family:var(--fu);font-weight:600;font-size:.85rem;opacity:.7;line-height:1.4;">Walk-in subject to availability. Reserve via Odd App to guarantee your rig.</div></div>
+        <div style="padding:8px 0;border-bottom:1px solid #1a1a1a;"><div class="M" style="font-size:.6rem;color:var(--lime);letter-spacing:.1em;margin-bottom:2px;">02 // PAYMENT</div><div style="font-family:var(--fu);font-weight:600;font-size:.85rem;opacity:.7;line-height:1.4;">NFC wristband only. Session billed per minute.</div></div>
+        <div style="padding:8px 0;border-bottom:1px solid #1a1a1a;"><div class="M" style="font-size:.6rem;color:var(--lime);letter-spacing:.1em;margin-bottom:2px;">03 // FOOD & DRINKS</div><div style="font-family:var(--fu);font-weight:600;font-size:.85rem;opacity:.7;line-height:1.4;">Full G/F Diner menu via app. Vending machines on-floor.</div></div>
+        <div style="padding:8px 0;border-bottom:1px solid #1a1a1a;"><div class="M" style="font-size:.6rem;color:var(--lime);letter-spacing:.1em;margin-bottom:2px;">04 // HARDWARE</div><div style="font-family:var(--fu);font-weight:600;font-size:.85rem;opacity:.7;line-height:1.4;">All peripherals supplied. Don't bring your own unless it's a tournament.</div></div>
+        <div style="padding:8px 0;"><div class="M" style="font-size:.6rem;color:var(--lime);letter-spacing:.1em;margin-bottom:2px;">05 // EDITING BAYS</div><div style="font-family:var(--fu);font-weight:600;font-size:.85rem;opacity:.7;line-height:1.4;">Adobe, Blackmagic, Logitech tools. Pre-book only.</div></div>
+        <button class="btn bL" style="width:100%;margin-top:12px;text-align:center;" onclick="openModal()">Book a Rig →</button>
+      </div>
+    </div>
+  </div>
+  <div style="border:2px solid var(--lime);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+    <div><div class="D" style="color:var(--lime);font-size:1.7rem;">NO MEMBERSHIP. NO MINIMUM. NO BULLSHIT.</div><div class="M" style="font-size:.62rem;opacity:.45;margin-top:2px;">Pay per minute via NFC. Walk in, sit down, play.</div></div>
+    <button class="btn bL" onclick="openModal()">Book via Odd App →</button>
+  </div>
+</div>
+</div>
+
+<div id="page-studios" class="page">
+<div class="inner" style="padding-top:14px;">
+  <div style="border:2px solid var(--white);padding:14px 18px;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:0;">
+    <div><span class="tag" style="color:var(--cyan);border-color:var(--cyan);display:inline-block;margin-bottom:5px;">Second Floor · 6,500 sq ft · Soundproofed</span><div class="D" style="font-size:clamp(3rem,9vw,6.5rem);line-height:.9;"><span style="color:var(--cyan);">CREATOR</span><br><span class="outlined-cyan">STUDIOS.</span></div></div>
+    <div style="max-width:300px;"><p style="font-family:var(--fu);font-weight:600;font-size:.98rem;opacity:.65;line-height:1.55;">Soundproofed music production, vocal recording, podcast, and cyclorama spaces. Priced below market via brand partnerships.</p>
+      <div style="margin-top:8px;display:flex;flex-wrap:wrap;"><span class="partner-pill" style="color:var(--cyan);border-color:var(--cyan);">AKG</span><span class="partner-pill" style="color:var(--cyan);border-color:var(--cyan);">Yamaha</span><span class="partner-pill" style="color:var(--cyan);border-color:var(--cyan);">Sennheiser</span><span class="partner-pill" style="color:var(--cyan);border-color:var(--cyan);">Sony</span><span class="partner-pill" style="color:var(--cyan);border-color:var(--cyan);">DJI</span><span class="partner-pill" style="color:var(--cyan);border-color:var(--cyan);">Godox</span></div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);border:2px solid var(--white);border-top:none;margin-bottom:20px;" id="pod-grid">
+    <div class="pod" style="border-color:#1a1a1a;border-top:3px solid var(--cyan);"><div class="M" style="font-size:.58rem;color:var(--cyan);letter-spacing:.14em;margin-bottom:2px;">STUDIO A — RECORDING</div><div class="D" style="font-size:1.5rem;margin-bottom:7px;">Vocal · Podcast · Voice</div><div class="M" style="font-size:.65rem;opacity:.55;line-height:1.8;margin-bottom:8px;">AKG C414 + Beyerdynamic mics<br>Yamaha HS8 Studio Monitors<br>Apollo Twin X interface<br>Pro Tools + Logic Pro</div><div class="D" style="color:var(--cyan);font-size:1.9rem;">₹950<span style="font-size:.95rem;">/hr</span></div><div class="blink M" style="color:var(--lime);font-size:.62rem;font-weight:700;margin-top:5px;letter-spacing:.1em;">● AVAILABLE</div></div>
+    <div class="pod" style="border-color:#1a1a1a;border-top:3px solid var(--magenta);border-left:2px solid #1a1a1a;"><div class="M" style="font-size:.58rem;color:var(--magenta);letter-spacing:.14em;margin-bottom:2px;">STUDIO B — PRODUCTION</div><div class="D" style="font-size:1.5rem;margin-bottom:7px;">Beat · Mix · Composition</div><div class="M" style="font-size:.65rem;opacity:.55;line-height:1.8;margin-bottom:8px;">Sennheiser HD 800S headphones<br>Yamaha Motif + 61-Key MIDI<br>Ableton Live 12 Suite<br>Serum · Omnisphere · Kontakt</div><div class="D" style="color:var(--magenta);font-size:1.9rem;">₹950<span style="font-size:.95rem;">/hr</span></div><div class="M" style="color:var(--red);font-size:.62rem;font-weight:700;margin-top:5px;letter-spacing:.1em;">■ BOOKED — 3 HRS</div></div>
+    <div class="pod" style="border-color:#1a1a1a;border-top:3px solid var(--yellow);border-left:2px solid #1a1a1a;"><div class="M" style="font-size:.58rem;color:var(--yellow);letter-spacing:.14em;margin-bottom:2px;">STUDIO C — VIDEO</div><div class="D" style="font-size:1.5rem;margin-bottom:7px;">Edit · Grade · Motion</div><div class="M" style="font-size:.65rem;opacity:.55;line-height:1.8;margin-bottom:8px;">Sony FX6 · DJI RS3 Pro rig<br>Blackmagic URSA + Resolve Studio<br>Godox lighting kit (6-point)<br>Mac Studio M3 Max · 96GB RAM</div><div class="D" style="color:var(--yellow);font-size:1.9rem;">₹950<span style="font-size:.95rem;">/hr</span></div><div class="blink M" style="color:var(--lime);font-size:.62rem;font-weight:700;margin-top:5px;letter-spacing:.1em;">● AVAILABLE</div></div>
+    <div class="pod" style="border-color:#1a1a1a;border-top:3px solid var(--lime);"><div class="M" style="font-size:.58rem;color:var(--lime);letter-spacing:.14em;margin-bottom:2px;">STUDIO D — STREAMING</div><div class="D" style="font-size:1.5rem;margin-bottom:7px;">Live · Reels · Content</div><div class="M" style="font-size:.65rem;opacity:.55;line-height:1.8;margin-bottom:8px;">Sony ZV-E1 streaming cam<br>DJI Osmo + Godox RGB lights<br>Elgato 4K60 Pro capture<br>OBS · StreamLabs Pro</div><div class="D" style="color:var(--lime);font-size:1.9rem;">₹950<span style="font-size:.95rem;">/hr</span></div><div class="blink M" style="color:var(--lime);font-size:.62rem;font-weight:700;margin-top:5px;letter-spacing:.1em;">● AVAILABLE</div></div>
+    <div class="pod" style="border-color:#1a1a1a;border-left:2px solid #1a1a1a;grid-column:span 2;"><div class="M" style="font-size:.58rem;color:var(--white);opacity:.5;letter-spacing:.14em;margin-bottom:2px;">STUDIO E — CYCLORAMA</div><div class="D" style="font-size:1.5rem;margin-bottom:7px;">Photography · Video · Lookbooks · Shoots</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px;"><div class="M" style="font-size:.65rem;opacity:.55;line-height:1.8;">Infinity white cyc wall<br>Godox SL300III 3-point lighting<br>Sony A7 IV + DJI drone access</div><div class="M" style="font-size:.65rem;opacity:.55;line-height:1.8;">Backdrop colour roll-ins (8 colours)<br>Prop and furniture kit<br>Hair + makeup station</div></div><div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap;"><div class="D" style="font-size:1.9rem;">₹1,200<span style="font-size:.95rem;">/hr</span></div><div class="M" style="font-size:.65rem;opacity:.4;">Half-day ₹5,500 · Full-day ₹9,500</div><div class="blink M" style="color:var(--lime);font-size:.62rem;font-weight:700;letter-spacing:.1em;">● AVAILABLE</div></div></div>
+  </div>
+  <div style="background:var(--cyan);border:2px solid var(--void);padding:16px 18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;">
+    <div><div class="D" style="color:var(--void);font-size:2.2rem;">THE SOUND INCUBATOR</div><p style="font-family:var(--fu);font-weight:700;font-size:.92rem;color:var(--void);max-width:560px;line-height:1.5;margin-top:3px;">Book 10+ hours/month → Incubator status. Permanent locker. Name on the wall. First-access to Underground gig slots.</p></div>
+    <button class="btn" style="background:var(--void);color:var(--cyan);border-color:var(--void);box-shadow:4px 4px 0 var(--void);" onclick="openModal()">Apply via Odd App</button>
+  </div>
+</div>
+</div>
+
+<div id="page-stage" class="page">
+<div class="inner" style="padding-top:14px;">
+  <div style="border:2px solid var(--white);padding:14px 18px;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:0;">
+    <div><span class="tag" style="color:var(--magenta);border-color:var(--magenta);display:inline-block;margin-bottom:5px;">Basement Floor · 6,500 sq ft · Independent Entry</span><div class="D" style="font-size:clamp(3rem,9vw,6.5rem);line-height:.9;"><span style="color:var(--magenta);">THE</span><br><span class="outlined-magenta">UNDERGROUND.</span></div></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);border:2px solid var(--white);"><div style="padding:10px 12px;border-right:2px solid var(--white);"><div class="D" style="color:var(--magenta);font-size:1.9rem;">500</div><div class="M" style="font-size:.58rem;opacity:.55;letter-spacing:.1em;">STANDING</div></div><div style="padding:10px 12px;border-right:2px solid var(--white);"><div class="D" style="color:var(--cyan);font-size:1.9rem;">350</div><div class="M" style="font-size:.58rem;opacity:.55;letter-spacing:.1em;">SEATED</div></div><div style="padding:10px 12px;"><div class="D" style="color:var(--lime);font-size:1.9rem;">25×20</div><div class="M" style="font-size:.58rem;opacity:.55;letter-spacing:.1em;">FT STAGE</div></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);border:2px solid var(--white);border-top:none;margin-bottom:20px;" id="config-grid">
+    <div style="padding:16px;border-right:2px solid #222;border-bottom:2px solid #222;"><span class="tag" style="color:var(--magenta);border-color:var(--magenta);font-size:.58rem;display:inline-block;margin-bottom:6px;">Config 01</span><div class="D" style="color:var(--magenta);font-size:1.8rem;line-height:1;">Underground<br>Cyphers & Indie Gigs</div><div class="M" style="font-size:.62rem;opacity:.5;line-height:1.7;margin-top:6px;">Standing floor. Moshing tolerated. 25×20 stage. 12KW d&b audiotechnik PA.</div></div>
+    <div style="padding:16px;border-bottom:2px solid #222;"><span class="tag" style="color:var(--cyan);border-color:var(--cyan);font-size:.58rem;display:inline-block;margin-bottom:6px;">Config 02</span><div class="D" style="color:var(--cyan);font-size:1.8rem;line-height:1;">Sports &<br>Esports Watch Party</div><div class="M" style="font-size:.62rem;opacity:.5;line-height:1.7;margin-top:6px;">100" projection wall. 350 seated. Full bar service.</div></div>
+    <div style="padding:16px;border-right:2px solid #222;"><span class="tag" style="color:var(--lime);border-color:var(--lime);font-size:.58rem;display:inline-block;margin-bottom:6px;">Config 03</span><div class="D" style="color:var(--lime);font-size:1.8rem;line-height:1;">5v5 LAN<br>Esports Tournament</div><div class="M" style="font-size:.62rem;opacity:.5;line-height:1.7;margin-top:6px;">Competitive 5v5 — Valorant, COD. Casting desk. Prize pool events.</div></div>
+    <div style="padding:16px;"><span class="tag" style="color:var(--yellow);border-color:var(--yellow);font-size:.58rem;display:inline-block;margin-bottom:6px;">Config 04</span><div class="D" style="color:var(--yellow);font-size:1.8rem;line-height:1;">General Live<br>Music Room</div><div class="M" style="font-size:.62rem;opacity:.5;line-height:1.7;margin-top:6px;">Intimate standing room. Full backline. Direct load-in from parking.</div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;border:2px solid var(--white);margin-bottom:20px;" id="squeeze-grid">
+    <div style="background:var(--magenta);padding:13px 15px;border-right:2px solid var(--void);"><div class="D" style="color:var(--white);font-size:1.4rem;">⚠ SOLVING THE CYPHER SQUEEZE</div><p style="font-family:var(--fu);font-weight:700;font-size:.88rem;color:var(--void);margin-top:5px;line-height:1.5;">Mumbai's best underground artists are performing in Vile Parle because established venues charge prohibitive booking fees. The Underground gives raw talent an affordable, professional home.</p></div>
+    <div style="padding:13px 15px;"><span class="tag" style="color:var(--lime);border-color:var(--lime);display:inline-block;margin-bottom:6px;font-size:.58rem;">COVER → CREDITS</span><div class="D" style="color:var(--lime);font-size:1.5rem;">₹200 cover = ₹200 NFC credit</div><div class="M" style="font-size:.62rem;opacity:.45;margin-top:5px;line-height:1.5;">Auto-loaded to Odd App wallet on entry tap. Spend at PC Bang, Studios, Diner, or Merch.</div></div>
+  </div>
+  <div class="M" style="font-size:.6rem;color:var(--magenta);letter-spacing:.18em;margin-bottom:8px;">// UPCOMING EVENTS</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:20px;" id="ev-grid">
+    <div class="ev"><div style="display:flex;justify-content:space-between;margin-bottom:7px;flex-wrap:wrap;gap:3px;"><span class="tag" style="color:var(--lime);border-color:var(--lime);font-size:.58rem;">This Friday</span><span class="tag" style="color:var(--white);border-color:var(--white);font-size:.58rem;">Config 01</span></div><div class="D" style="color:var(--lime);font-size:1.9rem;line-height:1;">Underground<br>Cypher Vol. 23</div><div style="font-family:var(--fu);font-weight:600;font-size:.82rem;opacity:.55;margin:3px 0 9px;">Open Mic Freestyle · Standing</div><div style="display:flex;justify-content:space-between;align-items:flex-end;"><div class="M" style="font-size:.58rem;opacity:.4;">FRI 18 OCT — 9PM</div><div class="D" style="color:var(--lime);font-size:1.7rem;">₹200</div></div><button class="btn bL" style="width:100%;margin-top:9px;text-align:center;" onclick="openModal()">Get Tickets</button></div>
+    <div class="ev"><div style="display:flex;justify-content:space-between;margin-bottom:7px;flex-wrap:wrap;gap:3px;"><span class="tag" style="color:var(--cyan);border-color:var(--cyan);font-size:.58rem;">This Saturday</span><span class="tag" style="color:var(--white);border-color:var(--white);font-size:.58rem;">Config 03</span></div><div class="D" style="color:var(--cyan);font-size:1.9rem;line-height:1;">EA FC<br>Invitational</div><div style="font-family:var(--fu);font-weight:600;font-size:.82rem;opacity:.55;margin:3px 0 9px;">5v5 LAN · ₹5,000 Prize Pool</div><div style="display:flex;justify-content:space-between;align-items:flex-end;"><div class="M" style="font-size:.58rem;opacity:.4;">SAT 19 OCT — 2PM</div><div class="D" style="color:var(--cyan);font-size:1.7rem;">₹150</div></div><button class="btn bC" style="width:100%;margin-top:9px;text-align:center;" onclick="openModal()">Register Now</button></div>
+    <div class="ev"><div style="display:flex;justify-content:space-between;margin-bottom:7px;flex-wrap:wrap;gap:3px;"><span class="tag" style="color:var(--magenta);border-color:var(--magenta);font-size:.58rem;">Next Week</span><span class="tag" style="color:var(--white);border-color:var(--white);font-size:.58rem;">Config 01</span></div><div class="D" style="color:var(--magenta);font-size:1.9rem;line-height:1;">Riot<br>Frequencies</div><div style="font-family:var(--fu);font-weight:600;font-size:.82rem;opacity:.55;margin:3px 0 9px;">3-Act Electronic Showcase</div><div style="display:flex;justify-content:space-between;align-items:flex-end;"><div class="M" style="font-size:.58rem;opacity:.4;">FRI 25 OCT — 8PM</div><div class="D" style="color:var(--magenta);font-size:1.7rem;">₹350</div></div><button class="btn bM" style="width:100%;margin-top:9px;text-align:center;" onclick="openModal()">Get Tickets</button></div>
+    <div class="ev"><div style="display:flex;justify-content:space-between;margin-bottom:7px;flex-wrap:wrap;gap:3px;"><span class="tag" style="color:var(--yellow);border-color:var(--yellow);font-size:.58rem;">Monthly</span><span class="tag" style="color:var(--white);border-color:var(--white);font-size:.58rem;">Free Entry</span></div><div class="D" style="color:var(--yellow);font-size:1.9rem;line-height:1;">Beat<br>Market</div><div style="font-family:var(--fu);font-weight:600;font-size:.82rem;opacity:.55;margin:3px 0 9px;">Producers sell. Rappers buy.</div><div style="display:flex;justify-content:space-between;align-items:flex-end;"><div class="M" style="font-size:.58rem;opacity:.4;">LAST SUN — 12PM</div><div class="D" style="color:var(--yellow);font-size:1.7rem;">FREE</div></div><button class="btn bY" style="width:100%;margin-top:9px;text-align:center;" onclick="openModal()">Add to Calendar</button></div>
+    <div class="ev"><div style="display:flex;justify-content:space-between;margin-bottom:7px;flex-wrap:wrap;gap:3px;"><span class="tag" style="color:var(--lime);border-color:var(--lime);font-size:.58rem;">Biweekly</span><span class="tag" style="color:var(--white);border-color:var(--white);font-size:.58rem;">Config 03</span></div><div class="D" style="color:var(--lime);font-size:1.9rem;line-height:1;">Midnight<br>Valorant</div><div style="font-family:var(--fu);font-weight:600;font-size:.82rem;opacity:.55;margin:3px 0 9px;">5v5 Blind Draft · ₹10K Prize</div><div style="display:flex;justify-content:space-between;align-items:flex-end;"><div class="M" style="font-size:.58rem;opacity:.4;">WED 23 OCT — 12AM</div><div class="D" style="color:var(--lime);font-size:1.4rem;">₹200/player</div></div><button class="btn bL" style="width:100%;margin-top:9px;text-align:center;" onclick="openModal()">Form Team</button></div>
+    <div class="ev"><div style="display:flex;justify-content:space-between;margin-bottom:7px;flex-wrap:wrap;gap:3px;"><span class="tag" style="color:var(--cyan);border-color:var(--cyan);font-size:.58rem;">Upcoming</span><span class="tag" style="color:var(--white);border-color:var(--white);font-size:.58rem;">Config 02</span></div><div class="D" style="color:var(--cyan);font-size:1.9rem;line-height:1;">Champions<br>League Watch</div><div style="font-family:var(--fu);font-weight:600;font-size:.82rem;opacity:.55;margin:3px 0 9px;">100" Projection · 350 Seated · Full Bar</div><div style="display:flex;justify-content:space-between;align-items:flex-end;"><div class="M" style="font-size:.58rem;opacity:.4;">TUE 22 OCT — 12AM</div><div class="D" style="color:var(--cyan);font-size:1.7rem;">₹100</div></div><button class="btn bC" style="width:100%;margin-top:9px;text-align:center;" onclick="openModal()">Get Tickets</button></div>
+  </div>
+</div>
+</div>
+
+<div id="page-merch" class="page">
+<div class="inner" style="padding-top:14px;">
+  <div style="border:2px solid var(--white);padding:14px 18px;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:0;">
+    <div><span class="tag" style="color:var(--yellow);border-color:var(--yellow);display:inline-block;margin-bottom:5px;">In-Venue Streetwear Label</span><div class="D" style="font-size:clamp(3rem,9vw,6.5rem);line-height:.9;"><span style="color:var(--yellow);">OOO</span><br><span class="outlined-white">MERCH.</span></div></div>
+    <p style="font-family:var(--fu);font-weight:600;font-size:.98rem;opacity:.65;max-width:280px;line-height:1.55;">Bridging utility-focused streetwear with Indian maximalism. No hype tax.</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;" id="merch-grid">
+    <div class="mc ch" onclick="openModal()"><div style="background:#0e1200;height:190px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border-bottom:2px solid var(--white);" class="ht"><div style="text-align:center;position:relative;z-index:1;"><div class="D outlined-lime" style="font-size:5rem;line-height:1;-webkit-text-stroke:1.5px var(--lime);">OOO</div><div class="M" style="font-size:.58rem;color:var(--white);opacity:.5;letter-spacing:.2em;">OVERSIZED TEE</div></div><span class="tag" style="color:var(--lime);border-color:var(--lime);position:absolute;top:8px;left:8px;font-size:.58rem;">NEW DROP</span></div><div style="padding:11px;background:var(--white);"><div style="font-family:var(--fu);font-weight:900;font-size:1.05rem;color:var(--void);">THE OUTCAST TEE</div><div class="M" style="font-size:.62rem;color:var(--void);opacity:.55;margin:2px 0 7px;">220GSM · Boxy Drop Shoulder · XS–3XL</div><div style="display:flex;justify-content:space-between;align-items:center;"><div class="D" style="color:var(--void);font-size:1.7rem;">₹849</div><button class="btn" style="background:var(--void);color:var(--white);border-color:var(--void);box-shadow:none;font-size:.78rem;padding:5px 12px;">Add to Cart</button></div></div></div>
+    <div class="mc ch" onclick="openModal()"><div style="background:#100008;height:190px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border-bottom:2px solid var(--white);" class="htM"><div style="text-align:center;position:relative;z-index:1;"><div class="D" style="font-size:4.5rem;color:var(--magenta);line-height:1;">UNDER</div><div class="M" style="font-size:.58rem;color:var(--white);opacity:.5;letter-spacing:.2em;">HEAVY HOODIE</div></div><span class="tag" style="color:var(--magenta);border-color:var(--magenta);position:absolute;top:8px;left:8px;font-size:.58rem;">BESTSELLER</span></div><div style="padding:11px;background:var(--white);"><div style="font-family:var(--fu);font-weight:900;font-size:1.05rem;color:var(--void);">UNDERGROUND HOODIE</div><div class="M" style="font-size:.62rem;color:var(--void);opacity:.55;margin:2px 0 7px;">380GSM Fleece · Embroidered motif · Unisex</div><div style="display:flex;justify-content:space-between;align-items:center;"><div class="D" style="color:var(--void);font-size:1.7rem;">₹1,699</div><button class="btn" style="background:var(--void);color:var(--white);border-color:var(--void);box-shadow:none;font-size:.78rem;padding:5px 12px;">Add to Cart</button></div></div></div>
+    <div class="mc ch" onclick="openModal()"><div style="background:#001410;height:190px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border-bottom:2px solid var(--white);"><div style="text-align:center;position:relative;z-index:1;"><div class="D outlined-cyan" style="font-size:4rem;line-height:1;-webkit-text-stroke:1.5px var(--cyan);">GULLY</div><div class="D" style="font-size:2rem;color:var(--lime);background:var(--void);border:1.5px solid var(--lime);padding:0 8px;">BANDANA</div></div><span class="tag" style="color:var(--cyan);border-color:var(--cyan);position:absolute;top:8px;left:8px;font-size:.58rem;">LIMITED</span></div><div style="padding:11px;background:var(--white);"><div style="font-family:var(--fu);font-weight:900;font-size:1.05rem;color:var(--void);">KALI BANDANA</div><div class="M" style="font-size:.62rem;color:var(--void);opacity:.55;margin:2px 0 7px;">100% Cotton · Screen Printed · 52×52cm</div><div style="display:flex;justify-content:space-between;align-items:center;"><div class="D" style="color:var(--void);font-size:1.7rem;">₹299</div><button class="btn" style="background:var(--void);color:var(--white);border-color:var(--void);box-shadow:none;font-size:.78rem;padding:5px 12px;">Add to Cart</button></div></div></div>
+    <div class="mc ch" onclick="openModal()"><div style="background:#0d0900;height:190px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border-bottom:2px solid var(--white);"><div class="D" style="font-size:9rem;color:var(--yellow);line-height:1;">O</div><span class="tag" style="color:var(--yellow);border-color:var(--yellow);position:absolute;top:8px;left:8px;font-size:.58rem;">NEW</span></div><div style="padding:11px;background:var(--white);"><div style="font-family:var(--fu);font-weight:900;font-size:1.05rem;color:var(--void);">ODD ONES OUT CAP</div><div class="M" style="font-size:.62rem;color:var(--void);opacity:.55;margin:2px 0 7px;">6-Panel Structured · Embroidered "O"</div><div style="display:flex;justify-content:space-between;align-items:center;"><div class="D" style="color:var(--void);font-size:1.7rem;">₹649</div><button class="btn" style="background:var(--void);color:var(--white);border-color:var(--void);box-shadow:none;font-size:.78rem;padding:5px 12px;">Add to Cart</button></div></div></div>
+    <div class="mc ch" onclick="openModal()"><div style="background:#0e0014;height:190px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border-bottom:2px solid var(--white);" class="htM"><div style="text-align:center;position:relative;z-index:1;"><div class="D" style="font-size:3.5rem;color:var(--magenta);line-height:1;">CARGO</div><div class="M" style="font-size:.58rem;color:var(--white);opacity:.5;letter-spacing:.2em;">WIDE-LEG UTILITY</div></div><span class="tag" style="color:var(--magenta);border-color:var(--magenta);position:absolute;top:8px;left:8px;font-size:.58rem;">HOT</span></div><div style="padding:11px;background:var(--white);"><div style="font-family:var(--fu);font-weight:900;font-size:1.05rem;color:var(--void);">OOO CARGO</div><div class="M" style="font-size:.62rem;color:var(--void);opacity:.55;margin:2px 0 7px;">Ripstop · 6 pockets · Unisex sizing</div><div style="display:flex;justify-content:space-between;align-items:center;"><div class="D" style="color:var(--void);font-size:1.7rem;">₹1,299</div><button class="btn" style="background:var(--void);color:var(--white);border-color:var(--void);box-shadow:none;font-size:.78rem;padding:5px 12px;">Add to Cart</button></div></div></div>
+    <div class="mc ch" onclick="openModal()"><div style="background:#000c12;height:190px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border-bottom:2px solid var(--white);"><div style="text-align:center;"><div class="D" style="font-size:3.2rem;color:var(--cyan);line-height:1;">HEAVY</div><div class="D" style="font-size:3.2rem;color:var(--white);line-height:1;">TOTE</div></div><span class="tag" style="color:var(--cyan);border-color:var(--cyan);position:absolute;top:8px;left:8px;font-size:.58rem;">UTILITY</span></div><div style="padding:11px;background:var(--white);"><div style="font-family:var(--fu);font-weight:900;font-size:1.05rem;color:var(--void);">14oz CANVAS TOTE</div><div class="M" style="font-size:.62rem;color:var(--void);opacity:.55;margin:2px 0 7px;">Heavy canvas · Reinforced handles</div><div style="display:flex;justify-content:space-between;align-items:center;"><div class="D" style="color:var(--void);font-size:1.7rem;">₹449</div><button class="btn" style="background:var(--void);color:var(--white);border-color:var(--void);box-shadow:none;font-size:.78rem;padding:5px 12px;">Add to Cart</button></div></div></div>
+  </div>
+</div>
+</div>
+
+<div id="page-zine" class="page">
+<div class="inner" style="padding-top:14px;">
+  <div style="border:2px solid var(--white);padding:14px 18px;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:0;">
+    <div><span class="tag" style="color:var(--cyan);border-color:var(--cyan);display:inline-block;margin-bottom:5px;">Digital Magazine · Social Media Presence</span><div class="D" style="font-size:clamp(3rem,9vw,6.5rem);line-height:.9;"><span style="color:var(--white);">THE</span><br><span class="outlined-cyan">ZINE.</span></div></div>
+    <p style="font-family:var(--fu);font-weight:600;font-size:.98rem;opacity:.65;max-width:280px;line-height:1.55;">A digital zine documenting underground culture and questioning the lack of infrastructure for raw talent.</p>
+  </div>
+  <div style="border:2px solid var(--white);border-top:none;margin-bottom:6px;">
+    <div style="background:var(--cyan);padding:7px 14px;border-bottom:2px solid var(--void);display:flex;justify-content:space-between;align-items:center;"><div class="M" style="font-size:.6rem;font-weight:700;color:var(--void);letter-spacing:.15em;">★ FEATURED — VOL 01</div><div class="M" style="font-size:.58rem;color:var(--void);opacity:.65;">Long Read · 28 min</div></div>
+    <div style="padding:22px;"><div class="D" style="font-size:clamp(1.8rem,4vw,3rem);line-height:1;color:var(--white);">WHERE THE F*CK IS<br><span style="color:var(--cyan);">MUMBAI'S UNDERGROUND?</span></div><p style="font-family:var(--fu);font-weight:600;font-size:.97rem;opacity:.65;max-width:680px;margin-top:9px;line-height:1.58;">A deep investigation into why a city of 22 million produces world-class underground art but has virtually zero infrastructure to support it.</p><div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:10px;"><span class="tag" style="color:var(--yellow);border-color:var(--yellow);font-size:.58rem;">Issue 001</span><span class="tag" style="color:var(--magenta);border-color:var(--magenta);font-size:.58rem;">Long Read</span><span class="tag" style="color:var(--lime);border-color:var(--lime);font-size:.58rem;">Infrastructure</span></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:20px;" id="zine-grid">
+    <div class="zc"><span class="tag" style="color:var(--magenta);border-color:var(--magenta);font-size:.58rem;display:inline-block;margin-bottom:7px;">Authenticity</span><div class="D" style="color:var(--magenta);font-size:1.45rem;line-height:1.05;margin-bottom:5px;">THE INSTAGRAM RAP PERFORMANCE COMPLEX</div><p style="font-family:var(--fu);font-weight:600;font-size:.83rem;opacity:.55;line-height:1.5;margin-bottom:9px;">Is social media making artists better — or just better at performing being artists?</p><div style="display:flex;justify-content:space-between;"><span class="M" style="font-size:.58rem;opacity:.35;">12 MIN</span><span class="D" style="color:var(--magenta);font-size:.95rem;">READ →</span></div></div>
+    <div class="zc"><span class="tag" style="color:var(--lime);border-color:var(--lime);font-size:.58rem;display:inline-block;margin-bottom:7px;">Infrastructure</span><div class="D" style="color:var(--lime);font-size:1.45rem;line-height:1.05;margin-bottom:5px;">REHEARSAL DESERTS: ₹15,000 TO PLUG IN A GUITAR</div><p style="font-family:var(--fu);font-weight:600;font-size:.83rem;opacity:.55;line-height:1.5;margin-bottom:9px;">We called 47 rehearsal spaces in Mumbai. 29 were defunct.</p><div style="display:flex;justify-content:space-between;"><span class="M" style="font-size:.58rem;opacity:.35;">9 MIN</span><span class="D" style="color:var(--lime);font-size:.95rem;">READ →</span></div></div>
+    <div class="zc"><span class="tag" style="color:var(--yellow);border-color:var(--yellow);font-size:.58rem;display:inline-block;margin-bottom:7px;">Gaming</span><div class="D" style="color:var(--yellow);font-size:1.45rem;line-height:1.05;margin-bottom:5px;">INDIA'S BEST GAMERS GRINDING IN BEDROOMS WHILE KOREA BUILT TEMPLES</div><p style="font-family:var(--fu);font-weight:600;font-size:.83rem;opacity:.55;line-height:1.5;margin-bottom:9px;">PC Bang culture built Korea's gaming ecosystem. India has the talent but not the space.</p><div style="display:flex;justify-content:space-between;"><span class="M" style="font-size:.58rem;opacity:.35;">15 MIN</span><span class="D" style="color:var(--yellow);font-size:.95rem;">READ →</span></div></div>
+    <div class="zc"><span class="tag" style="color:var(--cyan);border-color:var(--cyan);font-size:.58rem;display:inline-block;margin-bottom:7px;">Authenticity</span><div class="D" style="color:var(--cyan);font-size:1.45rem;line-height:1.05;margin-bottom:5px;">VERIFIED BUT NOT REAL: THE BLUE TICK AS SOCIAL CURRENCY</div><p style="font-family:var(--fu);font-weight:600;font-size:.83rem;opacity:.55;line-height:1.5;margin-bottom:9px;">When follower counts become portfolio pieces, what happens to artists building in private?</p><div style="display:flex;justify-content:space-between;"><span class="M" style="font-size:.58rem;opacity:.35;">8 MIN</span><span class="D" style="color:var(--cyan);font-size:.95rem;">READ →</span></div></div>
+    <div class="zc"><span class="tag" style="color:var(--magenta);border-color:var(--magenta);font-size:.58rem;display:inline-block;margin-bottom:7px;">Culture</span><div class="D" style="color:var(--magenta);font-size:1.45rem;line-height:1.05;margin-bottom:5px;">THE GULLY'S REVENGE: REFUSING LUXURY COOPTION</div><p style="font-family:var(--fu);font-weight:600;font-size:.83rem;opacity:.55;line-height:1.5;margin-bottom:9px;">Bonkers Corner, Dharavi Archive, and accessible Indian streetwear.</p><div style="display:flex;justify-content:space-between;"><span class="M" style="font-size:.58rem;opacity:.35;">11 MIN</span><span class="D" style="color:var(--magenta);font-size:.95rem;">READ →</span></div></div>
+    <div class="zc"><span class="tag" style="color:var(--lime);border-color:var(--lime);font-size:.58rem;display:inline-block;margin-bottom:7px;">Infrastructure</span><div class="D" style="color:var(--lime);font-size:1.45rem;line-height:1.05;margin-bottom:5px;">THE NFC ECONOMY EXPERIMENT: CLOSED LOOP LOYALTY</div><p style="font-family:var(--fu);font-weight:600;font-size:.83rem;opacity:.55;line-height:1.5;margin-bottom:9px;">Six months of data on how underground communities spend within a closed-loop system.</p><div style="display:flex;justify-content:space-between;"><span class="M" style="font-size:.58rem;opacity:.35;">20 MIN</span><span class="D" style="color:var(--lime);font-size:.95rem;">READ →</span></div></div>
+  </div>
+  <div style="border:2px solid var(--white);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;"><div><div class="D" style="font-size:1.5rem;">THE ZINE IS FREE. FOREVER.</div><div class="M" style="font-size:.6rem;opacity:.4;margin-top:2px;">No paywalls. No sponsored content.</div></div><button class="btn bC" onclick="openModal()">Read via Odd App</button></div>
+</div>
+</div>
+
+<div class="modal-bg" id="oddModal" onclick="closeOut(event)">
+  <div class="modal-sheet" id="modalSheet">
+    <div style="background:var(--lime);border-bottom:2px solid var(--void);padding:11px 14px;display:flex;justify-content:space-between;align-items:center;">
+      <div><div class="D" style="color:var(--void);font-size:1.9rem;">⬡ ODD APP</div><div class="M" style="font-size:.58rem;color:var(--void);opacity:.65;letter-spacing:.14em;">NFC WALLET — CLOSED LOOP ECOSYSTEM</div></div>
+      <button onclick="closeModal()" style="background:var(--void);color:var(--lime);border:2px solid var(--void);font-family:var(--fu);font-weight:900;font-size:.95rem;padding:6px 12px;cursor:pointer;letter-spacing:.1em;text-transform:uppercase;">✕ Close</button>
+    </div>
+    <div style="padding:14px;">
+      <div style="border:2px solid var(--lime);padding:13px;margin-bottom:12px;">
+        <div class="M" style="font-size:.57rem;color:var(--lime);letter-spacing:.17em;opacity:.7;margin-bottom:2px;">// NFC WALLET BALANCE</div>
+        <div class="D" style="color:var(--lime);font-size:3.2rem;line-height:1;">₹1,250.00</div>
+        <div style="font-family:var(--fu);font-weight:800;font-size:.88rem;margin-top:2px;">ARJUN K. — <span style="color:var(--yellow);">INCUBATOR TIER ★</span></div>
+        <div style="display:flex;gap:7px;margin-top:9px;"><button class="btn bL" style="font-size:.78rem;padding:6px 12px;">+ Top Up</button><button class="btn bV" style="font-size:.78rem;padding:6px 12px;">View History</button></div>
+      </div>
+      <div style="background:#040e04;border:2px solid var(--lime);padding:11px;margin-bottom:12px;position:relative;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:repeating-linear-gradient(90deg,var(--lime) 0,var(--lime) 7px,transparent 7px,transparent 13px);"></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
+          <div>
+            <div style="display:flex;align-items:center;gap:5px;margin-bottom:3px;"><div class="sdot pulsed"></div><span class="M" style="color:var(--green);font-size:.6rem;font-weight:700;letter-spacing:.1em;">ACTIVE SESSION</span></div>
+            <div class="D" style="font-size:1.5rem;line-height:1;">CREATOR STUDIO A — RECORDING</div>
+            <div class="M" style="font-size:.6rem;opacity:.45;margin-top:2px;">2/F · Started: 3:15 PM — 1hr 22min elapsed</div>
+            <div class="D" style="color:var(--yellow);font-size:1.2rem;margin-top:4px;">Running: ₹1,302.50</div>
+          </div>
+          <button class="btn bR" style="font-size:.75rem;padding:6px 11px;flex-shrink:0;">End</button>
+        </div>
+      </div>
+      <div class="M" style="font-size:.58rem;letter-spacing:.14em;margin-bottom:7px;opacity:.6;">// QUICK ACTIONS</div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin-bottom:12px;">
+        <button class="abtn" style="border-color:var(--lime);"><i data-lucide="monitor" style="width:22px;height:22px;color:var(--lime);"></i>Book PC Bang</button>
+        <button class="abtn" style="border-color:var(--cyan);"><i data-lucide="mic" style="width:22px;height:22px;color:var(--cyan);"></i>Book Studio</button>
+        <button class="abtn" style="border-color:var(--yellow);"><i data-lucide="utensils" style="width:22px;height:22px;color:var(--yellow);"></i>Order F&amp;B</button>
+        <button class="abtn" style="border-color:var(--magenta);"><i data-lucide="ticket" style="width:22px;height:22px;color:var(--magenta);"></i>Event Tickets</button>
+      </div>
+      <div class="M" style="font-size:.58rem;letter-spacing:.14em;margin-bottom:7px;opacity:.6;">// RECENT TRANSACTIONS</div>
+      <div>
+        <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #181818;"><div><div style="font-family:var(--fu);font-weight:700;font-size:.88rem;">PC Bang — Rig 07 · 1F</div><div class="M" style="font-size:.57rem;opacity:.35;">Today, 12:30 PM</div></div><div class="D" style="color:var(--magenta);font-size:1.2rem;">−₹300</div></div>
+        <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #181818;"><div><div style="font-family:var(--fu);font-weight:700;font-size:.88rem;">Diner — Craft Lager × 2 + Fries · GF</div><div class="M" style="font-size:.57rem;opacity:.35;">Today, 2:15 PM</div></div><div class="D" style="color:var(--magenta);font-size:1.2rem;">−₹520</div></div>
+        <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #181818;"><div><div style="font-family:var(--fu);font-weight:700;font-size:.88rem;">The Underground — Cypher · BF</div><div class="M" style="font-size:.57rem;opacity:.35;">Last Friday — cover auto-converted</div></div><div class="D" style="color:var(--lime);font-size:1.2rem;">+₹200</div></div>
+        <div style="display:flex;justify-content:space-between;padding:7px 0;"><div><div style="font-family:var(--fu);font-weight:700;font-size:.88rem;">OOO Merch — Outcast Tee</div><div class="M" style="font-size:.57rem;opacity:.35;">Last Thursday</div></div><div class="D" style="color:var(--magenta);font-size:1.2rem;">−₹849</div></div>
+      </div>
+      <div style="border:2px solid #1e1e1e;padding:9px;margin-top:10px;"><div class="M" style="font-size:.62rem;font-weight:700;color:var(--lime);">⬡ YOUR NFC WRISTBAND</div><div class="M" style="font-size:.58rem;opacity:.38;margin-top:2px;line-height:1.55;">ID: OOO-2027-MH-7734 | Valid across all 5 floors.</div></div>
+    </div>
+  </div>
+</div>
+
+<button class="fab" onclick="openModal()"><i data-lucide="nfc" style="width:15px;height:15px;"></i>Odd App</button>
+
+<script>
+lucide.createIcons();
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.querySelectorAll('.nlink[data-p]').forEach(n => n.classList.toggle('act', n.dataset.p === id));
+  window.scrollTo({top:0, behavior:'smooth'});
+  lucide.createIcons();
+  buildGrids();
+}
+function openModal() { document.getElementById('oddModal').classList.add('open'); document.body.style.overflow = 'hidden'; lucide.createIcons(); }
+function closeModal() { document.getElementById('oddModal').classList.remove('open'); document.body.style.overflow = ''; }
+function closeOut(e) { if (e.target === document.getElementById('oddModal')) closeModal(); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+function buildGrids() {
+  const g = document.getElementById('stn-grid'); if (!g || g.children.length) return;
+  const busy = [3,6,9,10,15,18,22,27,30,35,38,44,50,51,55,60,62,70,75,80];
+  let html = '';
+  for (let i = 1; i <= 100; i++) { const b = busy.includes(i); html += '<div class="stn '+(b?'bz':'op')+'" title="RIG '+String(i).padStart(2,'0')+'" onclick="'+(b?'':'openModal()')+'">R'+String(i).padStart(2,'0')+'<br>'+(b?'■':'●')+'</div>'; }
+  g.innerHTML = html;
+  const eg = document.getElementById('edit-grid'); if (!eg || eg.children.length) return;
+  const eb = [2, 5, 8, 14, 17];
+  let eh = '';
+  for (let i = 1; i <= 20; i++) { const b = eb.includes(i); eh += '<div class="stn '+(b?'bz':'ed')+'" title="EDIT BAY '+String(i).padStart(2,'0')+'" onclick="'+(b?'':'openModal()')+'">E'+String(i).padStart(2,'0')+'<br>'+(b?'■':'▲')+'</div>'; }
+  eg.innerHTML = eh;
+}
+buildGrids();
+
+function resizeAll() {
+  const w = window.innerWidth;
+  const s = (id,v) => { const e = document.getElementById(id); if(e) e.style.gridTemplateColumns = v; };
+  s('hero-grid', w<640?'1fr':'1fr 260px');
+  s('diner-grid', w<880?'1fr':'1fr 300px');
+  s('hub-grid', w<880?'1fr':'1fr 300px');
+  s('pod-grid', w<660?'1fr':w<960?'1fr 1fr':'repeat(3,1fr)');
+  s('squeeze-grid', w<660?'1fr':'1fr 1fr');
+  s('config-grid', w<660?'1fr':'1fr 1fr');
+  ['ev-grid','zine-grid','merch-grid'].forEach(id => s(id, w<660?'1fr':w<960?'1fr 1fr':'repeat(3,1fr)'));
+}
+resizeAll(); window.addEventListener('resize', resizeAll);
+</script>
+</body>
+</html>
